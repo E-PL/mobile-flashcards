@@ -31,12 +31,33 @@ import Quiz from "./components/Quiz";
 
 // Edit header back button (software) hardware is listened for in component
 import { HeaderBackButton } from "@react-navigation/stack";
+// Redux persist
+import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from 'redux-persist/es/integration/react'
+import AsyncStorage from '@react-native-community/async-storage';
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 
-const store = createStore(reducer, middleware);
+// Persist store config
+const persistConfig = {
+  key: "root",
+  storage: AsyncStorage,
+  stateReconciler: hardSet,
+};
+
+// New reducer
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+
+
+
+const store = createStore(persistedReducer, middleware);
+const persistor = persistStore(store)
 
 export default function App() {
   return (
     <Provider store={store}>
+      <PersistGate 
+      persistor={persistor}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Homepage" component={Homepage} />
@@ -58,6 +79,7 @@ export default function App() {
           <Stack.Screen name="Take quiz" component={Quiz} />
         </Stack.Navigator>
       </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }
