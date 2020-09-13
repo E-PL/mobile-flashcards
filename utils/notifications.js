@@ -26,7 +26,7 @@ export function setupNotifications(lastQuizTime) {
         });
     })
     .catch((err) => {
-      console.error(
+      console.log(
         "Error in clearing notifications or in promise chain:",
         err
       );

@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Text, View, FlatList, TouchableHighlight } from "react-native";
-// React navigation community solution inports
-import "react-native-gesture-handler";
+
 
 /**
  * DeckList component
