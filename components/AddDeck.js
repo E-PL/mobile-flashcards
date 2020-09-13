@@ -15,7 +15,7 @@ import { nanoid } from "nanoid/async/index.native";
  *
  * @description The AddDeck component renders a TextInput for the deck name, call nano ID to generate a random id and save the new deck to Redux store.
  * @export Component
- * @param {*} { navigation } Navigation prop from react-navigation
+ * @param {Object} { navigation } Navigation prop from react-navigation
  * @returns Children components
  */
 export default function AddDeck({ navigation }) {

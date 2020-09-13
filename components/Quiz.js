@@ -1,86 +1,78 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Button, SafeAreaView, TextInput } from "react-native";
-
+import { Text, Button, SafeAreaView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { nanoid } from "nanoid/async/index.native";
 // import action
-import { setQuizTime } from '../actions/quizTime' 
+import { setQuizTime } from "../actions/quizTime";
 
-
-// Component loaded in deck view, aka when the user select or create e deck
+/**
+ * Quiz component
+ *
+ * @description The Quiz component get the deck id to quiz from react route params, it saves the time of last quiz to redux store and renders the quiz.
+ * @export Component
+ * @param {Object} { route, navigation } React Navigation props
+ * @returns Children components
+ */
 export default function Quiz({ route, navigation }) {
-    const dispatch = useDispatch();
-  
-    // save to redux store the time a new card is shown to trigger notifications after one day from that moment
-    useEffect(() => {
-        const time ={ time: + new Date() };
-        console.log(time);
-        dispatch(setQuizTime(time));
-      }, [currentCard]);
-  
-  
-    console.log("route");
-  console.log(route);
-  // I'm passing the deck id and name via route param
+  // Grab dispatch
+  const dispatch = useDispatch();
+
+  // save to Redux store the time a new card is shown to trigger notifications after one day from that moment
+  useEffect(() => {
+    const time = { time: +new Date() };
+    dispatch(setQuizTime(time));
+  }, [currentCard]);
+
+  // Get deck id and name via route param
   const deckID = route.params.id;
-  console.log("deck");
-  console.log(deckID);
 
+  // Using that id, get the deck object from Redux store
   const deck = useSelector((state) => state.decks[deckID]);
-  console.log(deck.cards, "inquiz deck");
-  console.log(Object.keys(deck.cards).length, "lenght");
 
-  // make a copy of the card object as array of objects in the component state
+  // Make a copy of the card object as array of objects in the component state
+  // I'm using component state for all quiz data, as it shoudn't persist over app reloads or view changes
   const cardsList = Object.keys(deck.cards).map((cardID) => {
     return deck.cards[cardID];
   });
 
+  // Save that copy to component state
   const [unansweredCards, setUnansweredCards] = useState(cardsList);
 
   // Pick the first card of the array to begin with and save it to component state
   const [currentCard, setCurrentCard] = useState(unansweredCards[0]);
 
-  console.log(unansweredCards, "unanswered cards");
-
-  // keep track of user score, I'm using component state for all quiz data, as it shoudn't persist over app reloads or view changes
+  // Keep track of user score in component state
   const [score, incrementScore] = useState(0);
 
-  function nextQuestion() {
-    //   check if the quiz is over
-console.log(unansweredCards, 'OOOOOOOO')
-console.log(unansweredCards, unansweredCards.length)
-
-
-
-    // remove the answered card from the unanswered array
-    const filteredCards = unansweredCards;
-    filteredCards.shift();
-
-    setUnansweredCards(filteredCards);
-    // Pick a new random card
-
-    setCurrentCard(unansweredCards[0]);
-  }
-
+  // When the user submit a correct answer result, increment score and show a new card
   function handleCorrectAnswer() {
     incrementScore(score + 1);
     nextQuestion();
   }
-
+  // When the user submit an incorrect answer result, show a new card
   function handleIncorrectAnswer() {
     nextQuestion();
   }
 
+  // Show a new card
+  function nextQuestion() {
+    // Remove the answered card from the unanswered array
+    const filteredCards = unansweredCards;
+    filteredCards.shift();
+    // Update the unanswered cards array in component state
+    setUnansweredCards(filteredCards);
+    // Pick a new card to display
+    setCurrentCard(unansweredCards[0]);
+  }
+
+  // When the user tap the show answer button, set a property named showAnswer on currentCard component state variable with a true value
   function handleShowAnswer() {
     setCurrentCard({
       ...currentCard,
       showAnswer: true,
     });
   }
-  function navigateToDeckView() {
-    navigation.push("Deck", { id: deckID });
-  }
 
+  // If the unanswered cards array is empty and the deck have questions, it means that the quiz is finished, so renders quiz results
   if (unansweredCards.length === 0 && Object.keys(deck.cards).length != 0) {
     return (
       <SafeAreaView
@@ -109,6 +101,7 @@ console.log(unansweredCards, unansweredCards.length)
     );
   }
 
+  // If the deck have no cards, tell the user to add some, if the deck have cards, render the quiz
   return Object.keys(deck.cards).length === 0 ? (
     <SafeAreaView
       style={{

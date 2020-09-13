@@ -2,7 +2,6 @@
  * Decks reducer
  */
 
-// Inport action types
 import { ADD_DECK, DELETE_DECK } from "../actions/decks";
 import { ADD_CARD } from "../actions/decks";
 

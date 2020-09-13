@@ -12,7 +12,7 @@ import { deleteDeck } from "../actions/decks";
  *
  * @description The Deck component is rendered when the user select a deck or after deck creation. The deck id is passed by react navigation props
  * @export Component
- * @param {*} { route, navigation } React Navigation props
+ * @param {Object} { route, navigation } React Navigation props
  * @returns
  */
 export default function Deck({ route, navigation }) {

@@ -1,8 +1,7 @@
 /*
- * Quiz time reducer
+ * QuizTime reducer
  */
 
-// Inport action types
 import { SET_TIME } from "../actions/quizTime";
 
 export default function quizTime(state = {time: 1}, action) {

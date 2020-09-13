@@ -1,50 +1,57 @@
-// TODO sanitize user input before passing it to reducers or props
 import React, { useState, useEffect } from "react";
 import { Text, Button, SafeAreaView, TextInput } from "react-native";
-// fix Text strings must be rendered within a text component
-
 import { useDispatch } from "react-redux";
+// Import random id generator
 import { nanoid } from "nanoid/async/index.native";
-// import action
+// Import action
 import { addCard as saveCard } from "../actions/decks";
 
-
-
 // Component loaded in deck view, aka when the user select or create e deck
+/**
+ * AddCards component
+ *
+ * @description The AddCard component add cards to a deck. The deck id is passed through navigation props.
+ * @export Component
+ * @param {Object} { route, navigation } React Navigation props
+ * @returns Children components
+ */
 export default function AddCards({ route, navigation }) {
-  // Random id
-
+  
+  // Store the random id to local state 
   const [id, saveID] = useState("");
-
+  
+  // When component mounts, generate a random id for the card
   useEffect(() => {
     const id = nanoid().then((id) => {
       saveID(id);
     });
   }, []);
 
+  // Grab dispatch
   const dispatch = useDispatch();
 
-  console.log("route");
-  console.log(route);
+
   // I'm passing the deck id and name via route param
   const deckID = route.params.id;
-  console.log("deck");
-  console.log(deckID);
 
+  // Save the TextInputs values to local state
   const [cardQuestion, saveCardQuestion] = useState("");
   const [cardAnswer, saveCardAnswer] = useState("");
 
+  // When the user submit the card dispatch the action to add it to Redux store and render the Deck component passing it the newly created deck id as route param.
   function handleAddCard() {
+    // Create the card object
     const card = {};
     card.deckId = deckID;
     card.id = id;
     card.question = cardQuestion;
     card.answer = cardAnswer;
-    // dispatch action
+    // Dispatch action
     dispatch(saveCard(card));
-    // return to deck view
+    // Return to deck view
     navigation.push('Deck',  {id: deckID} )
   }
+
   return (
     <SafeAreaView
       style={{

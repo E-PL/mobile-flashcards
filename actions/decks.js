@@ -3,14 +3,11 @@
 */
 
 // Actions types
-
 export const ADD_DECK = 'ADD_DECK';
 export const ADD_CARD = 'ADD_CARD';
 export const DELETE_DECK = 'DELETE_DECK';
 
-
-
-
+// Action creators
 export function addDeck(deck) {
     return {
       type: ADD_DECK,
@@ -28,7 +25,8 @@ export function addCard(card) {
       answer: card.answer
     };
   }
-export function deleteDeck(deckId) {
+
+  export function deleteDeck(deckId) {
     return {
       type: DELETE_DECK,
       deckId
