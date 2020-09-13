@@ -34,7 +34,7 @@ const Stack = createStackNavigator();
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  stateReconciler: hardSet,
+  stateReconciler: autoMergeLevel2,
 };
 
 // Create a persistant reducer to pass to the store

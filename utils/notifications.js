@@ -4,6 +4,7 @@
 import * as Notifications from "expo-notifications";
 
 export function setupNotifications(lastQuizTime) {
+
   console.log("SETTING NOTIFICATIONS UP");
 
   clearNotifications()

@@ -25,8 +25,8 @@ export default function Homepage() {
   const lastQuizTime = useSelector((state) => state.quizTime);
   // Schedule notifications and update them when the user takes the quiz
   useEffect(() => {
-    setupNotifications(lastQuizTime);
-  }, [lastQuizTime]);
+   // setupNotifications(lastQuizTime);
+  }, [lastQuizTime.time]);
 
   return (
     <Tab.Navigator initialRouteName="Decks">

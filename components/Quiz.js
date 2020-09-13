@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Button, SafeAreaView, TextInput } from "react-native";
-// fix Text strings must be rendered within a text component
-import "react-native-gesture-handler";
+
 import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "nanoid/async/index.native";
 // import action
@@ -14,7 +13,7 @@ export default function Quiz({ route, navigation }) {
   
     // save to redux store the time a new card is shown to trigger notifications after one day from that moment
     useEffect(() => {
-        const time = + new Date();
+        const time ={ time: + new Date() };
         console.log(time);
         dispatch(setQuizTime(time));
       }, [currentCard]);
