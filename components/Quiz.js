@@ -81,7 +81,7 @@ console.log(unansweredCards, unansweredCards.length)
     navigation.push("Deck", { id: deckID });
   }
 
-  if (unansweredCards.length === 0) {
+  if (unansweredCards.length === 0 && Object.keys(deck.cards).length != 0) {
     return (
       <SafeAreaView
         style={{
