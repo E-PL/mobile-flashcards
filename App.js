@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, {useEffect} from "react";
 import { StyleSheet, Text, View, TabBarIOS } from "react-native";
 // React navigation community solution inports
 import "react-native-gesture-handler";
@@ -37,6 +37,9 @@ import { PersistGate } from 'redux-persist/es/integration/react'
 import AsyncStorage from '@react-native-community/async-storage';
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 
+
+
+
 // Persist store config
 const persistConfig = {
   key: "root",
@@ -54,6 +57,7 @@ const store = createStore(persistedReducer, middleware);
 const persistor = persistStore(store)
 
 export default function App() {
+  
   return (
     <Provider store={store}>
       <PersistGate 

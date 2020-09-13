@@ -1,3 +1,5 @@
+// TODO: sanitize user input before passing it to reducers or props
+
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Text, View, TextInput, Button, SafeAreaView } from "react-native";

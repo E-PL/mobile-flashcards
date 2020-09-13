@@ -5,10 +5,22 @@ import "react-native-gesture-handler";
 import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "nanoid/async/index.native";
 // import action
+import { setQuizTime } from '../actions/quizTime' 
+
 
 // Component loaded in deck view, aka when the user select or create e deck
 export default function Quiz({ route, navigation }) {
-  console.log("route");
+    const dispatch = useDispatch();
+  
+    // save to redux store the time a new card is shown to trigger notifications after one day from that moment
+    useEffect(() => {
+        const time = + new Date();
+        console.log(time);
+        dispatch(setQuizTime(time));
+      }, [currentCard]);
+  
+  
+    console.log("route");
   console.log(route);
   // I'm passing the deck id and name via route param
   const deckID = route.params.id;
@@ -36,10 +48,10 @@ export default function Quiz({ route, navigation }) {
 
   function nextQuestion() {
     //   check if the quiz is over
+console.log(unansweredCards, 'OOOOOOOO')
+console.log(unansweredCards, unansweredCards.length)
 
-    if (unansweredCards.length === 0) {
-      return;
-    }
+
 
     // remove the answered card from the unanswered array
     const filteredCards = unansweredCards;
