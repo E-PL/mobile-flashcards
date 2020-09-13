@@ -25,8 +25,8 @@ export default function Homepage() {
   const lastQuizTime = useSelector((state) => state.quizTime);
   // Schedule notifications and update them when the user takes the quiz
   useEffect(() => {
-  setupNotifications(lastQuizTime.time);
-  console.log('HOMETIME', lastQuizTime.time)
+    setupNotifications(lastQuizTime.time);
+    console.log("HOMETIME", lastQuizTime.time);
   }, [lastQuizTime.time]);
 
   return (

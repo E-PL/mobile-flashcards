@@ -16,10 +16,9 @@ import { addCard as saveCard } from "../actions/decks";
  * @returns Children components
  */
 export default function AddCards({ route, navigation }) {
-  
-  // Store the random id to local state 
+  // Store the random id to local state
   const [id, saveID] = useState("");
-  
+
   // When component mounts, generate a random id for the card
   useEffect(() => {
     const id = nanoid().then((id) => {
@@ -29,7 +28,6 @@ export default function AddCards({ route, navigation }) {
 
   // Grab dispatch
   const dispatch = useDispatch();
-
 
   // I'm passing the deck id and name via route param
   const deckID = route.params.id;
@@ -49,50 +47,50 @@ export default function AddCards({ route, navigation }) {
     // Dispatch action
     dispatch(saveCard(card));
     // Return to deck view
-    navigation.push('Deck',  {id: deckID} )
+    navigation.push("Deck", { id: deckID });
   }
 
   return (
-    <SafeAreaView
-      style={{
-        width: "80%",
-        margin: "auto",
-        justifyContent: "center",
-        alignContent: "center",
-        alignSelf: "center",
-        flex: 1,
-      }}
-    >
-      <Text>Write question and answer to add</Text>
-
-      <TextInput
+    <>
+      <Text style={{ fontSize: 16, textAlign: "center", margin: 5 }}>
+        Write question and answer to add
+      </Text>
+      <SafeAreaView
         style={{
-          height: 30,
-          width: "100%",
-          borderColor: "lightblue",
-          borderWidth: 1,
-          marginBottom: 10,
+          width: "80%",
+          margin: "auto",
+          justifyContent: "center",
+          alignContent: "center",
+          alignSelf: "center",
+          flex: 1,
         }}
-        onChangeText={(text) => saveCardQuestion(text)}
-        value={cardQuestion}
-      
-
-        blurOnSubmit={true}
-      />
-      <TextInput
-        style={{
-          height: 30,
-          width: "100%",
-          borderColor: "lightblue",
-          borderWidth: 1,
-          marginBottom: 10,
-        }}
-        onChangeText={(text) => saveCardAnswer(text)}
-        value={cardAnswer}
-
-        blurOnSubmit={true}
-      />
-      <Button onPress={() => handleAddCard()} title="Submit"></Button>
-    </SafeAreaView>
+      >
+        <TextInput
+          style={{
+            height: 30,
+            width: "100%",
+            borderColor: "lightblue",
+            borderWidth: 1,
+            marginBottom: 10,
+          }}
+          onChangeText={(text) => saveCardQuestion(text)}
+          value={cardQuestion}
+          blurOnSubmit={true}
+        />
+        <TextInput
+          style={{
+            height: 30,
+            width: "100%",
+            borderColor: "lightblue",
+            borderWidth: 1,
+            marginBottom: 10,
+          }}
+          onChangeText={(text) => saveCardAnswer(text)}
+          value={cardAnswer}
+          blurOnSubmit={true}
+        />
+        <Button onPress={() => handleAddCard()} title="Submit"></Button>
+      </SafeAreaView>
+    </>
   );
 }

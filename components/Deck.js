@@ -67,14 +67,53 @@ export default function Deck({ route, navigation }) {
         flex: 1,
       }}
     >
-      <Text>{storedDeck.name}</Text>
+      <Text
+        style={{
+          justifyContent: "center",
+          alignContent: "center",
+          alignSelf: "center",
+          fontSize: 32,
+          padding: 10,
+        }}
+      >
+        {storedDeck.name}
+      </Text>
 
-      <Text>Number of cards:</Text>
-      <Text>{Object.keys(storedDeck.cards).length}</Text>
-      <Button onPress={() => handleTakeQuiz()} title="Take the quiz"></Button>
-
-      <Button onPress={() => handleAddCards()} title="Add cards"></Button>
-      <Button onPress={() => handleDelete()} title="Delete"></Button>
+      <Text
+        style={{
+          justifyContent: "center",
+          alignContent: "center",
+          alignSelf: "center",
+          fontSize: 20,
+          padding: 10,
+        }}
+      >
+        Number of cards:
+      </Text>
+      <Text
+        style={{
+          justifyContent: "center",
+          alignContent: "center",
+          alignSelf: "center",
+          fontSize: 20,
+          padding: 10,
+        }}
+      >
+        {Object.keys(storedDeck.cards).length}
+      </Text>
+      <View style={{ margin: 10 }}>
+        <Button onPress={() => handleTakeQuiz()} title="Take the quiz"></Button>
+      </View>
+      <View style={{ margin: 10 }}>
+        <Button onPress={() => handleAddCards()} title="Add cards"></Button>
+      </View>
+      <View style={{ margin: 10 }}>
+        <Button
+          color="red"
+          onPress={() => handleDelete()}
+          title="Delete"
+        ></Button>
+      </View>
     </View>
   );
 }

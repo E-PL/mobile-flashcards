@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, Button, SafeAreaView } from "react-native";
+import { Text, Button, SafeAreaView, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 // import action
 import { setQuizTime } from "../actions/quizTime";
@@ -78,24 +78,34 @@ export default function Quiz({ route, navigation }) {
       <SafeAreaView
         style={{
           width: "80%",
-          margin: "auto",
+          textAlign: "center",
           justifyContent: "center",
+          justifyItems: "center",
           alignContent: "center",
+          alignItems: "center",
           alignSelf: "center",
           flex: 1,
         }}
       >
-        <Text>The quiz is over</Text>
+        <Text style={{ fontSize: 32 }}>The quiz is over</Text>
 
-        <Text>
+        <Text style={{ fontSize: 20, textAlign: "center" }}>
           You scored {score} correct answers over{" "}
           {Object.keys(deck.cards).length} questions
         </Text>
-        {Object.keys(deck.cards).length === score && <Text>Perfect!</Text>}
-        {score === 0 && <Text>You can do better, try again!</Text>}
+        {Object.keys(deck.cards).length === score && (
+          <Text style={{ textAlign: "center" }}>Perfect!</Text>
+        )}
+        {score === 0 && (
+          <Text style={{ textAlign: "center" }}>
+            You can do better, try again!
+          </Text>
+        )}
         {Object.keys(deck.cards).length / 2 <= score &&
           Object.keys(deck.cards).length != score && (
-            <Text>You are halfway to perfection!</Text>
+            <Text style={{ textAlign: "center" }}>
+              You are halfway to perfection!
+            </Text>
           )}
       </SafeAreaView>
     );
@@ -125,22 +135,35 @@ export default function Quiz({ route, navigation }) {
         alignContent: "center",
         alignSelf: "center",
         flex: 1,
+        textAlign: "center",
       }}
     >
-      <Text>{currentCard.question}</Text>
-      <Text>?</Text>
+      <Text style={{ fontSize: 18, textAlign: "center" }}>
+        {currentCard.question}
+      </Text>
+      <Text style={{ fontSize: 18, textAlign: "center" }}>?</Text>
       {currentCard.showAnswer ? (
-        <Text>{currentCard.answer}</Text>
+        <Text style={{ fontSize: 18, textAlign: "center" }}>
+          {currentCard.answer}
+        </Text>
       ) : (
-        <Button onPress={() => handleShowAnswer()} title="Show answer"></Button>
+        <View style={{ margin: 10 }}>
+          <Button
+            onPress={() => handleShowAnswer()}
+            title="Show answer"
+          ></Button>
+        </View>
       )}
-
-      <Button onPress={() => handleCorrectAnswer()} title="Correct"></Button>
-      <Button
-        onPress={() => handleIncorrectAnswer()}
-        title="Incorrect"
-      ></Button>
-      <Text>
+      <View style={{ margin: 10 }}>
+        <Button onPress={() => handleCorrectAnswer()} title="Correct"></Button>
+      </View>
+      <View style={{ margin: 10 }}>
+        <Button
+          onPress={() => handleIncorrectAnswer()}
+          title="Incorrect"
+        ></Button>
+      </View>
+      <Text style={{ fontSize: 18, textAlign: "center" }}>
         Answered {Object.keys(deck.cards).length - unansweredCards.length} of{" "}
         {Object.keys(deck.cards).length} questions
       </Text>

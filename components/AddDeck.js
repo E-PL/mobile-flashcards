@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Text, TextInput, Button, SafeAreaView } from "react-native";
 // React navigation community solution inports
 
-
 // Actions
 import { addDeck } from "../actions/decks";
 //  Nano ID for random string generation
@@ -69,7 +68,9 @@ export default function AddDeck({ navigation }) {
           flex: 1,
         }}
       >
-        <Text>Choose a name for your new deck:</Text>
+        <Text style={{ fontSize: 16, textAlign: "center", margin: 5 }}>
+          Choose a name for your new deck:
+        </Text>
 
         <TextInput
           style={{

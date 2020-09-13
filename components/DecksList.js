@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Text, View, FlatList, TouchableHighlight } from "react-native";
 
-
 /**
  * DeckList component
  *
@@ -23,17 +22,33 @@ export default function DecksList({ navigation }) {
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View
+      style={{
+        width: "100%",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <FlatList
         data={deckList}
         renderItem={({ item, i, separators }) => (
           <TouchableHighlight
+            style={{ margin: 20 }}
             key={item.id}
             onPress={() => handleDeckPress(item.id)}
           >
-            <View style={{ backgroundColor: "white" }}>
-              <Text>{item.name}</Text>
-
+            <View
+              style={{
+                backgroundColor: "white",
+                width: "100%",
+                padding: 30,
+                borderRadius: 10,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 32, padding: 10 }}>{item.name}</Text>
               <Text>{Object.keys(item.cards).length} cards</Text>
             </View>
           </TouchableHighlight>
