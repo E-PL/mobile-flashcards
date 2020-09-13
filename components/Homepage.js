@@ -1,27 +1,32 @@
-import React, {useEffect} from "react";
-import { Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 // Tab navigator
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 // Icons for tab nav
 import { Entypo } from "@expo/vector-icons";
-// import components
+// Import components
 import AddDeck from "./AddDeck";
 import DecksList from "./DecksList";
-import { useSelector } from 'react-redux'
-import { setupNotifications } from '../utils/notifications'
+// Import notifications utility function
+import { setupNotifications } from "../utils/notifications";
 
 // Copy the Tab component to a const
 const Tab = createMaterialBottomTabNavigator();
 
-// In the homepage component the tab navigator loads the 2 tab components, in witch are nested the rest of the navigation as stack
+/**
+ * Homepage component
+ *
+ * @description In the homepage component, that is nested in the stack navigator, the tab navigator loads the 2 tab components. Notifications are set here.
+ * @export Component
+ * @returns Children components
+ */
 export default function Homepage() {
-
-
-        // Schedule notification after a day when the user view a card in the quiz view
-        const lastQuizTime = useSelector((state) => state.quizTime);
-        useEffect(() => {
-         setupNotifications(lastQuizTime)    
-        }, [lastQuizTime]);
+  // Get date of last quiz
+  const lastQuizTime = useSelector((state) => state.quizTime);
+  // Schedule notifications and update them when the user takes the quiz
+  useEffect(() => {
+    setupNotifications(lastQuizTime);
+  }, [lastQuizTime]);
 
   return (
     <Tab.Navigator initialRouteName="Decks">

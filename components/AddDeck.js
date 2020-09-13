@@ -1,58 +1,61 @@
-// TODO: sanitize user input before passing it to reducers or props
-
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Text, View, TextInput, Button, SafeAreaView } from "react-native";
+import { Text, TextInput, Button, SafeAreaView } from "react-native";
 // React navigation community solution inports
-import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-// Icons
-import { Entypo } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+
 // Actions
 import { addDeck } from "../actions/decks";
-//  Nano ID
+//  Nano ID for random string generation
 import { nanoid } from "nanoid/async/index.native";
 
-
-async function getRandomID() {
-  const id = await nanoid();
-}
-
+/**
+ * AddDeck
+ *
+ *
+ * @description The AddDeck component renders a TextInput for the deck name, call nano ID to generate a random id and save the new deck to Redux store.
+ * @export Component
+ * @param {*} { navigation } Navigation prop from react-navigation
+ * @returns Children components
+ */
 export default function AddDeck({ navigation }) {
+  // Store the random id to local state
   const [id, saveID] = useState("");
+
+  // Track deck saves to change the random id after a deck is saved
   const [decksSaved, incrementSavedDecks] = useState(0);
 
+  // Get a new random id at component mount and after the action to save the deck in Redux store is dispatched
   useEffect(() => {
     const id = nanoid().then((id) => {
       saveID(id);
     });
   }, [decksSaved]);
 
+  // Grab dispatch
   const dispatch = useDispatch();
 
+  // Save the TextInput value to local state
+  // TODO: sanitize user input before passing it to reducers or props before going to prod
   const [deckName, saveDeckName] = useState("");
 
+  // Handle submit button tap
   function handleSubmitDeck() {
-    // Update store
-    const name = deckName;
-
+    // Create the deck object to dispatch
     const deck = {};
     deck.id = id;
     deck.name = deckName;
 
+    // Save deck in Redux store
     dispatch(addDeck(deck));
 
-    // get another random id for the next new deck incrementing the saved deck counter in state passed in the optional hook array
-    // the counter changes, the hook gets executed again and save another random string to state.
+    // Increment the saved deck counter in state to trigger the useEffect hook that generates random ids
     incrementSavedDecks(decksSaved + 1);
 
     // Reset the text area content
-    saveDeckName('');
-    // Redirect to the new deck view
-    console.log(deckName);
+    saveDeckName("");
+    // Redirect to the Deck view passing the new id as route param
     navigation.navigate("Deck", { id: deck.id });
-    
   }
   return (
     <>

@@ -1,9 +1,9 @@
 // TODO sanitize user input before passing it to reducers or props
 import React, { useState, useEffect } from "react";
-import { Text, View, Button, SafeAreaView, TextInput } from "react-native";
+import { Text, Button, SafeAreaView, TextInput } from "react-native";
 // fix Text strings must be rendered within a text component
-import "react-native-gesture-handler";
-import { useSelector, useDispatch } from "react-redux";
+
+import { useDispatch } from "react-redux";
 import { nanoid } from "nanoid/async/index.native";
 // import action
 import { addCard as saveCard } from "../actions/decks";
