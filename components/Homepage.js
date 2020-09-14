@@ -24,10 +24,37 @@ export default function Homepage() {
   // Get date of last quiz
   const lastQuizTime = useSelector((state) => state.quizTime);
   // Schedule notifications and update them when the user takes the quiz
+
+  /*
+  * The reviewer reported this:
+  *
+  * Unable to review
+  * Your project could not be reviewed. Please resubmit after you address the issue noted below by the reviewer.
+  *
+  * Dear student,
+  *
+  * Thanks for the first submission.
+
+  * I'm sorry to say that your submission can't be graded at this time as you as the app can't be started because of below issue:
+  *
+  * File Name: Homepage.js
+  * Unrecognized event:
+  * Possible Unhandled Promise Rejection (id: 0):
+  * TypeError: undefined is not an object (evaluating 'lastQuizTime.time')
+  * Please make sure to check if not throwing any issue in your next submission along with other files.
+  *
+  * Looking forward to your next submission.
+  *
+  * Keep learning and stay Udacious. :udacious:
+  *
+  * Best of luck :)
+  * **************************************************************************************************************************************************************
+  * Honestly, I'm not getting any error, but I'll try to fix it using just lastquizTime instead of lastQuizTime.time in the useffect optional array (It should be ok even if undefined at first)
+  * Also I'll do a check to see if lastQuizTime.time is undefined before passing it to the setupNotifications() functions
+  */
   useEffect(() => {
-    setupNotifications(lastQuizTime.time);
-    console.log("HOMETIME", lastQuizTime.time);
-  }, [lastQuizTime.time]);
+    typeof lastQuizTime.time !== "undefined" && setupNotifications(lastQuizTime.time);
+  }, [lastQuizTime]);
 
   return (
     <Tab.Navigator initialRouteName="Decks">
